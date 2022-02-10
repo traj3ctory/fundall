@@ -2,7 +2,7 @@
   <div>
     <Header />
     <router-view />
-    <Footer />
+    <Footer class="d-none" />
   </div>
 </template>
 

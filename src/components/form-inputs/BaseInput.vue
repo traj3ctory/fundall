@@ -56,6 +56,49 @@ export default {
 
 <style lang="scss" scoped>
 div.base_input {
-  color: red;
+  input.form-control {
+    background: #ffffff;
+    border: 1px solid #4de897;
+    box-sizing: border-box;
+    border-radius: 4px;
+    &:active,
+    &:focus {
+      border-bottom: 1px solid #265785;
+      box-shadow: none;
+    }
+  }
+  span.input-group-text {
+    border: 0;
+    color: grey;
+    border-radius: 0.1rem;
+    background-color: #26588724;
+    cursor: pointer;
+    &:active,
+    &:focus {
+      border-bottom: 0;
+      box-shadow: none;
+    }
+  }
+  input {
+    color: #265785;
+    &::placeholder {
+      color: #26578572;
+    }
+  }
+  i.input_icon {
+    align-items: center;
+    display: flex;
+    min-height: inherit;
+    padding-left: 1.5%;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  input.w_input {
+    min-width: 96%;
+  }
+  .m_w_input {
+    display: flex;
+    min-width: 100%;
+  }
 }
 </style>
