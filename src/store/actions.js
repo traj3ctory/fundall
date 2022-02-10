@@ -1,4 +1,4 @@
-const actions = {
+export const actions = {
   SET_USER_TOKEN(context, payload) {
     context.commit("token", payload);
   },
@@ -9,5 +9,3 @@ const actions = {
     context.commit("token_type", payload);
   },
 };
-
-export default actions;

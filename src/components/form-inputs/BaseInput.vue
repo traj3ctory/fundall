@@ -50,17 +50,6 @@ export default {
       showPassword: false,
     };
   },
-  methods: {
-    toggleType(e) {
-      if (e.target.type === "password") {
-        e.target.type = "text";
-        this.showPassword = true;
-      } else if (e.target.type === "text") {
-        e.target.type = "password";
-        this.showPassword = false;
-      }
-    },
-  },
   mounted() {},
 };
 </script>

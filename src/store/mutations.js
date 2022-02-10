@@ -1,4 +1,4 @@
-const mutations = {
+export const mutations = {
   token: (state, data) => {
     state.token = data;
   },
@@ -14,4 +14,3 @@ const mutations = {
     state.token_type = "";
   },
 };
-export default mutations;
