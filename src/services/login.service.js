@@ -1,7 +1,8 @@
 import Request from "@/utils/Request";
 import Toast from "@/utils/Toast";
+import clearUserData from "@/utils/clear";
 
-// import store from "@/store";
+import store from "@/store";
 
 class LoginService {
   /**
@@ -11,12 +12,14 @@ class LoginService {
    * @returns response.data only if status is 'OK'
    */
   async login(data) {
-    this.removeUserData();
+    clearUserData();
     const response = await Request("POST", `login`, data);
-    if (response?.data?.user?.access_token) {
-      const { access_token } = response.data.user;
-    //   store.commit("AUTH_STORE/user_token", token);
-      localStorage.setItem("human_id", access_token);
+    if (response?.success?.user?.access_token) {
+      const { user } = response.success;
+      store.commit("token", user.access_token);
+      store.commit("token_type", user.token_type);
+      store.commit("details", user);
+      localStorage.setItem("human_id", user.access_token);
       Toast("", "Login Successfully", "success");
       return true;
     }
@@ -27,17 +30,9 @@ class LoginService {
    * @returns clears all user data and redirects to the homepage
    */
   async logout() {
-    this.removeUserData();
-    // store.commit("AUTH_STORE/logout");
+    clearUserData();
+    store.commit("logout");
     Toast("", "you have successfully logged out", "");
-  }
-  //   ===========================
-
-  /**
-   * Function to remove TOKEN USER_ID AND CATEGORY from localStorage
-   */
-  async removeUserData() {
-    localStorage.removeItem("human_id");
   }
 }
 

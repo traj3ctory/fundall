@@ -1,5 +1,7 @@
 const state = {
-  count: 0,
+  token: "",
+  details: {},
+  token_type: "",
 };
 
 export default state;

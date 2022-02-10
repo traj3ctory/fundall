@@ -1,9 +1,17 @@
 const mutations = {
-  increment(state) {
-    state.count++;
+  token: (state, data) => {
+    state.token = data;
   },
-  decrement(state) {
-    state.count--;
+  user_details: (state, data) => {
+    state.details = {...data};
+  },
+  token_type: (state, data) => {
+    state.token_type = data;
+  },
+  logout: (state) => {
+    state.token = "";
+    state.detail = {};
+    state.token_type = "";
   },
 };
 export default mutations;

@@ -9,12 +9,11 @@ import Toast from "./toast";
  * @returns response only if status is 'OK'
  */
 
-const request = (method, url, data, config) =>
+const request = (method = "GET", url, data) =>
   instance({
     method,
     url,
     data,
-    ...config,
   })
     .then((response) => {
       if (response.status === 200) {
@@ -23,7 +22,7 @@ const request = (method, url, data, config) =>
       }
     })
     .catch((error) => {
-      Toast("", error.response.data.message, "error", 3500);
+      Toast(error.response.data.code, error.response.data.error, "error", 3500);
     });
 
 export default request;
