@@ -1,5 +1,65 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&family=Roboto+Slab&display=swap");
 div.wrapper {
-  // background-color: #eeeeee;
+  background-color: #fcfbfc;
   font-family: "Inter", sans-serif;
+  button.btn_fundall {
+    background-color: #4ce895;
+    border-color: #4ce895;
+    color: #000000;
+  }
+  a {
+    color: #4ce895;
+    text-decoration: none;
+  }
+  .text_fundall {
+    color: #4ce895;
+  }
+  button {
+    position: relative;
+
+    &.submitting::after {
+      content: "";
+      position: absolute;
+      width: 1rem;
+      height: 1rem;
+      top: calc(50% - 0.5rem);
+      left: 1.5rem;
+      border-radius: 2rem;
+      border-color: transparent transparent #eeeeee #eeeeee;
+      border-style: solid;
+      border-width: 0.2rem;
+      animation: spinner-rotation 0.75s infinite;
+      animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+    &:focus,
+    &:active,
+    &:focus-within {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  @keyframes spinner-rotation {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  // ======================== Cursor-Pointer
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  div.card.shadow-sm {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.082937) !important;
+    border-radius: 6px;
+  }
+  
+  div.img_container {
+    margin-top: 10vh;
+  }
 }
+
+// email: "vetulunok@mailinator.com"
+// firstname: "Cassandra"
+// lastname: "Mcpherson"
+// password: "Pa$$w0rd!"
+// password_confirmation: "Pa$$w0rd!"

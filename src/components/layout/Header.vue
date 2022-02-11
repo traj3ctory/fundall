@@ -1,12 +1,12 @@
 <template>
   <header class="header">
     <nav class="navbar navbar-expand-md navbar-light bg_fundall">
-      <div class="container-fluid">
+      <div class="container">
         <router-link class="navbar-brand" to="/">
           <img
             :src="logo"
             alt="Fundall"
-            width="60"
+            width="80"
             height="auto"
             class="img-fluid"
           />

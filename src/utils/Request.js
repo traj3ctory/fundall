@@ -1,5 +1,4 @@
-import instance from "../plugin/axios";
-import Toast from "./toast";
+import instance from "../plugins/axios";
 
 /**
  * Generic axios request wrapper
@@ -9,20 +8,17 @@ import Toast from "./toast";
  * @returns response only if status is 'OK'
  */
 
-const request = (method = "GET", url, data) =>
-  instance({
-    method,
-    url,
-    data,
+const request = (method = "GET", url, data) => new Promise((resolve, reject) => {  instance({
+  method,
+  url,
+  data,
+})
+  .then((response) => {
+    resolve(response.data);
   })
-    .then((response) => {
-      if (response.status === 200) {
-        Toast("", response.data.message, "success", 3500);
-        return response.data;
-      }
-    })
-    .catch((error) => {
-      Toast(error.response.data.code, error.response.data.error, "error", 3500);
-    });
+  .catch((err) => {
+    reject(err.response.data);
+  });})
+
 
 export default request;

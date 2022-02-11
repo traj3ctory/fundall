@@ -1,36 +1,24 @@
 <template>
-  <div class="mb-3 base_input">
-    <label :for="data.id">{{ data.name }}</label>
-    <div class="input input-group">
-      <input
-        :type="data.type"
-        :placeholder="data.placeholder || data.name"
-        class="form-control"
-        :id="data.id || data.nam"
-        :name="data.id || data.nam"
-        value=""
-        :autocomplete="data.autoComplete"
-        @input="$emit(`update:${inputType.id}`)"
-        :aria-describedby="data.name"
-      />
-      <span
-        class="input-group-text"
-        :id="data.id || data.name"
-        @click="showPassword = !showPassword"
-      >
-        <i
-          :class="[showPassword ? 'bi-eye-fill' : 'bi-eye-slash']"
-          class="icon"
-        ></i>
-      </span>
-    </div>
+  <div class="base_input">
+    <label class="label" :for="data.id">{{ data.name }}</label>
+    <input
+      :type="data.type"
+      :placeholder="data.placeholder || data.name"
+      class="form-control"
+      :id="data.id || data.nam"
+      :name="data.id || data.nam"
+      value=""
+      :autocomplete="data.autoComplete"
+      @input="$emit('input', $event.target.value)"
+      :aria-describedby="data.name"
+      required
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: "BaseInput",
-  emits: ["^update:"],
   props: {
     data: {
       type: Object,
@@ -56,16 +44,29 @@ export default {
 
 <style lang="scss" scoped>
 div.base_input {
+  label.label {
+    color: #30443C;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
   input.form-control {
     background: #ffffff;
-    border: 1px solid #4de897;
-    box-sizing: border-box;
+    border: 1px solid #cad0c9;
     border-radius: 4px;
+    font-size: 0.9rem;
     &:active,
     &:focus {
-      border-bottom: 1px solid #265785;
+      border: 1px solid #4de897;
       box-shadow: none;
     }
+    &::placeholder {
+      color: #6c7973;
+    }
+  }
+  &:focus,
+  &:focus-within label.label {
+    color: #4de897;
   }
   span.input-group-text {
     border: 0;
@@ -77,12 +78,6 @@ div.base_input {
     &:focus {
       border-bottom: 0;
       box-shadow: none;
-    }
-  }
-  input {
-    color: #265785;
-    &::placeholder {
-      color: #26578572;
     }
   }
   i.input_icon {
