@@ -1,6 +1,19 @@
 <template>
   <main class="section_one_table">
-    <div class="card card-body shadow-sm border-0 pt-3 mt-4">
+    <div class="loading_container container" v-if="data.length <= 0">
+      <div class="d-flex justify-content-between w-100">
+        <h5>Date</h5>
+        <h5>Amount</h5>
+      </div>
+      <img
+        :src="img"
+        alt="search for data..."
+        class="img-fluid"
+        width="40%"
+        height="auto"
+      />
+    </div>
+    <div class="card card-body bg-transparent border-0 pt-3 mt-4" v-else>
       <p>Daily Expenses Summary</p>
       <DataTable :value="data" responsiveLayout="scroll">
         <Column field="" header="" :headerStyle="{ width: '1rem' }">
@@ -33,6 +46,8 @@
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
+const img = require("@/assets/find.svg");
+
 export default {
   name: "SectionOneTable",
   components: {
@@ -41,6 +56,7 @@ export default {
   },
   data() {
     return {
+      img,
       data: [
         {
           date: "30 Nov, 2018",
@@ -81,6 +97,23 @@ main.section_one_table {
       margin-right: 0.2rem;
       cursor: pointer;
     }
+  }
+  div.loading_container {
+    h5 {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1.2rem;
+      line-height: 22px;
+      color: #30443c;
+    }
+    margin-top: 3rem;
+    min-height: 15rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 }
 </style>

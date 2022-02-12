@@ -45,7 +45,7 @@ const confirmPasswordProp = {
 
 // User
 const targetProps = {
-  type: "text",
+  type: "number",
   name: "Target Monthly Expenses",
   id: "target",
   placeholder: "Enter Target",

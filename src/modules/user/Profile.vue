@@ -30,7 +30,7 @@ export default {
 
 <style lang="scss" scoped>
 main.user_profile {
-  padding-top: 2rem;
+  padding-top: 1/5rem;
   // min-height: calc(100vh - 60px);
   // display: flex;
   // align-items: center;

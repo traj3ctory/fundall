@@ -8,6 +8,9 @@ export const mutations = {
   token_type: (state, data) => {
     state.token_type = data;
   },
+  target: (state, data) => {
+    state.target = data;
+  },
   loading: (state, data) => {
     state.loading = data;
   },

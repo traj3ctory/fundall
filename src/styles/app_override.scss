@@ -80,6 +80,7 @@ div.wrapper {
     }
     .p-datatable-tbody {
       tr {
+        background-color: transparent;
         &:last-child td {
           border: none;
         }

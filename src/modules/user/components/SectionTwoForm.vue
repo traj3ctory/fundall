@@ -1,30 +1,29 @@
 <template>
   <main class="profile_form">
-    <form @submit="handleExpense">
-      <div class="row">
-        <div class="col-12 mb-3">
-          <BaseInput :data="targetProps" v-model="target" />
-        </div>
-        <div class="col-12 mb-3">
-          <BaseInput :data="dateProp" v-model="date" />
-        </div>
+    <div class="row mb-3">
+      <div class="col-12 mb-3">
+        <BaseInput :data="targetProps" v-model="target" @input="setTarget" />
       </div>
-      <h6>Today’s Expenses</h6>
-      {{ expense }}
-      <div>
-        <div class="row" v-for="(el, i) in 3" :key="i">
-          <div class="col-md-6 col-12 mb-3">
-            <input
-              type="text"
-              :name="`item-${el}`"
-              :id="`item-${el}`"
-              class="form-control"
-              v-model="expense[i][0]"
-              placeholder="Enter item"
-            />
-          </div>
-          <div class="col-md-6 col-12 mb-3">
-            <input
+      <div class="col-12 mb-3">
+        <BaseInput :data="dateProp" v-model="date" />
+      </div>
+    </div>
+    <h6 class="title">Today’s Expenses</h6>
+    <div>
+      <div class="row" v-for="(el, i) in 3" :key="i">
+        <div class="col-md-6 col-12 mb-3">
+          <input
+            type="text"
+            :name="`item-${el}`"
+            :id="`item-${el}`"
+            class="form-control"
+            v-model="expense[i][0]"
+            placeholder="Enter item"
+            @input="handleInput"
+          />
+        </div>
+        <div class="col-md-6 col-12 mb-3">
+          <!-- <input
               type="text"
               :name="`amount-${el}`"
               :id="`amount-${el}`"
@@ -32,31 +31,40 @@
               @input="expense[i][1] = formatNaira($event.target.value)"
               v-model="expense[i][1]"
               placeholder="Enter Amount"
-            />
-          </div>
+            /> -->
+          <input
+            type="number"
+            :name="`amount-${el}`"
+            :id="`amount-${el}`"
+            class="form-control"
+            @input="handleExpense"
+            v-model="expense[i][1]"
+            placeholder="Enter Amount"
+            disabled
+          />
         </div>
       </div>
-      <div class="total">
-        <h6>Total Actual Expenses:&ensp;&#8358;</h6>
-        <input
-          type="text"
-          name="result"
-          id="result"
-          disabled
-          :value="TotalExpense"
-          class="form-control w-25 push_left"
-        />
-      </div>
-      <div class="text-center">
-        <button
-          :disabled="this.$store.getters.isLoading"
-          :class="{ submitting: this.$store.getters.isLoading }"
-          class="btn btn_fundall"
-        >
-          SAVE TODAY’S EXPENSES
-        </button>
-      </div>
-    </form>
+    </div>
+    <div class="total">
+      <h6>Total Actual Expenses:&ensp;&#8358;</h6>
+      <input
+        type="text"
+        name="result"
+        id="result"
+        readOnly
+        :value="TotalExpense"
+        class="form-control w-25 push_left"
+      />
+    </div>
+    <div class="text-center">
+      <button
+        :disabled="this.$store.getters.isLoading"
+        :class="{ submitting: this.$store.getters.isLoading }"
+        class="btn btn_fundall"
+      >
+        SAVE TODAY’S EXPENSES
+      </button>
+    </div>
   </main>
 </template>
 
@@ -76,19 +84,43 @@ export default {
         ["", ""],
         ["", ""],
       ],
-      TotalExpense: "0.00",
+      TotalExpense: parseInt(0).toFixed(2),
     };
   },
   methods: {
-    handleExpense(e) {
-      e.preventDefault();
-      //?? Call the login dispatch function
-      //   this.$store.dispatch("LOGIN_USER", JSON.stringify(this.user));
+    handleExpense() {
+      if (this.expense.length > 0) {
+        const data = this.expense
+          .map((el) => Number(el[1]))
+          .reduce((a, b) => a + b);
+        const format = new Intl.NumberFormat("en-NG");
+        const datar = format.format(data);
+        this.TotalExpense = datar;
+      } else {
+        this.TotalExpense = parseInt(0).toFixed(2);
+      }
     },
-    // format value to naira currency
     formatNaira(value) {
       const data = new Intl.NumberFormat("en-NG");
-      return data.format(value);
+      const datar = data.format(value);
+      this.handleExpense();
+      return datar;
+    },
+    //on fill of the first input make the second input editable
+    handleInput(e) {
+      const itemId = e.target.id;
+      const id = itemId.split("-")[1];
+      const amountId = document.getElementById(`amount-${id}`);
+      if (e.target.value.length > 0) {
+        amountId.disabled = false;
+      } else {
+        amountId.value = "";
+        this.expense[id][1] = "";
+        amountId.disabled = true;
+      }
+    },
+    setTarget() {
+      this.$store.dispatch("SET_TARGET", this.target);
     },
   },
 };
@@ -141,6 +173,11 @@ main.profile_form {
     h6 {
       font-size: 1rem;
       padding-top: 0.2rem;
+      &.title {
+        font-size: 0.9rem;
+        color: #30443c;
+        font-weight: 500;
+      }
     }
     input.push_left {
       margin-left: 0.7rem;

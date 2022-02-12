@@ -84,6 +84,11 @@ export const actions = {
       context.commit("loading", false);
     }
   },
+  // Function to set user target
+  async SET_TARGET(context, payload) {
+    context.commit("target", payload);
+  },
+
   // Function to set the loading state
   async SET_LOADING(context, payload) {
     context.commit("loading", payload);

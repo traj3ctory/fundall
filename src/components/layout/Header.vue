@@ -23,7 +23,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav w-100 justify-content-end mb-2 mb-lg-0">
+          <ul class="navbar-nav w-100 justify-content-end mb-2 mb-lg-0" v-if="!this.$store.getters.isAuthenticated">
             <li class="nav-item">
               <button class="btn" @click="gotoLogin">LOG IN</button>
             </li>

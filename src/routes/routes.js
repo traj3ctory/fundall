@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import { store } from "../store";
 import { routes as GUEST } from "@/modules/guest/routes/guest.routes";
+import { store } from "../store";
+import Toast from "@/utils/Toast";
 
 Vue.use(VueRouter);
 
@@ -11,9 +12,9 @@ const routes = [
     path: "/profile/:slug",
     component: () => import("@/modules/user/Profile.vue"),
     name: "Profile",
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     // will match everything
@@ -30,29 +31,25 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   console.log(to.matched.some((record) => record.meta.requiresAuth));
-//   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     if (store.getters.isAuthenticated) {
-//       next();
-//       return;
-//     }
-//     next("/login");
-//   } else {
-//     next();
-//   }
-// });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some((record) => record.meta.guest)) {
-//     if (store.getters.isAuthenticated) {
-//       next("/profile:slug");
-//       return;
-//     }
-//     next();
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = store.getters.isAuthenticated;
+  const requireAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const guest = to.matched.some((record) => record.meta.guest);
+
+  if (!isAuthenticated && requireAuth) {
+    if (guest) {
+      next();
+    } else {
+      Toast("Access Denied!", "Please Login", "");
+      next({
+        path: "/login",
+      });
+    }
+  } else {
+    // Happens only when you are logged in and route is authenticated
+    next(); // make sure to always call next()!
+  }
+});
 
 export default router;
