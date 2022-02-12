@@ -46,7 +46,6 @@ export default {
   data() {
     return {
       image,
-      message: "Welcome to Your Vue.js App",
     };
   },
 };

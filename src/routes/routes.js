@@ -11,9 +11,9 @@ const routes = [
     path: "/profile/:slug",
     component: () => import("@/modules/user/Profile.vue"),
     name: "Profile",
-    meta: {
-      requiresAuth: true,
-    },
+    // meta: {
+    //   requiresAuth: true,
+    // },
   },
   {
     // will match everything

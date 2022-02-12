@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&family=Roboto+Slab&display=swap");
 div.wrapper {
   background-color: #fcfbfc;
+  min-height: 100vh;
   font-family: "Inter", sans-serif;
+  color: #30443c;
   button.btn_fundall {
     background-color: #4ce895;
     border-color: #4ce895;
@@ -52,9 +54,53 @@ div.wrapper {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.082937) !important;
     border-radius: 6px;
   }
-  
+
   div.img_container {
     margin-top: 10vh;
+  }
+  div.p-progressbar {
+    height: 0.5rem;
+    border-radius: 0.625rem;
+    width: 100%;
+    background-color: #efefef;
+    div.p-progressbar-value {
+      background-color: #4de897;
+    }
+  }
+
+  .p-datatable {
+    .p-datatable-thead {
+      tr {
+        th {
+          font-size: 1rem;
+          background-color: transparent;
+          border: none;
+        }
+      }
+    }
+    .p-datatable-tbody {
+      tr {
+        &:last-child td {
+          border: none;
+        }
+        td {
+          padding: 1rem 1.5rem;
+          font-weight: 500;
+          font-size: 0.95rem;
+          line-height: 11px;
+          color: #30443c;
+          &:last-child{
+            color: #4de897;
+          }
+          div.bullet {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: #4de897;
+          }
+        }
+      }
+    }
   }
 }
 
