@@ -5,11 +5,11 @@
 Install project with yarn
 
 ```bash
-    git clone https://github.com/traj3ctory/dashboard-ui.git
-    cd dashboard-ui
+    git clone https://github.com/traj3ctory/fundall.git
+    cd fundall
     yarn
     yarn serve
-
+```
 ### Compiles and hot-reloads for development
 ```
 yarn serve
