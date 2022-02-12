@@ -90,12 +90,24 @@ export default {
         return;
       }
     },
+    clearUserData() {
+      this.fullname = "";
+      this.email = "";
+      this.avatar = "";
+    },
   },
   watch: {
     "$store.state.target": {
       immediate: true,
       handler() {
         this.setTarget();
+      },
+    },
+    "$store.state.details": {
+      immediate: true,
+      handler() {
+        this.avatar = this.$store.state.details.avatar;
+        console.log("changed");
       },
     },
   },

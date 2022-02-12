@@ -42,11 +42,11 @@ export const actions = {
   // Function to get user details
   async GET_USER_DETAILS(context) {
     try {
-      context.commit("loading", true);
+      // context.commit("loading", true);
       const response = await Request("GET", "base/profile");
       const { data, status } = response.success;
       context.commit("details", { ...data });
-      Toast(status, "User details fetched successfully", "success");
+      Toast(status, "User details fetched successfully", "success", 1000);
       return;
     } catch (error) {
       Toast(error.error.code, error.error.error, "warning");
@@ -60,9 +60,11 @@ export const actions = {
       context.commit("loading", true);
       const response = await Request("POST", "base/avatar", payload);
       const { message, status } = response?.success;
-      //call the get user details function
-      await this.dispatch("GET_USER_DETAILS");
-      Toast(status, message, "success");
+      setTimeout(() => {
+        Toast(status, message, "success");
+      }, 1000);
+      //call the get user action without payload
+      await context.dispatch("GET_USER_DETAILS");
       return;
     } catch (error) {
       Toast(error.error.code, error.error.message, "warning");

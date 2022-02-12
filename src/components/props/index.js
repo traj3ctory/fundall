@@ -32,7 +32,7 @@ const passwordProp = {
   name: "Password",
   id: "password",
   placeholder: "Enter Password",
-  autoComplete: "password",
+  autoComplete: "current-password",
 };
 
 const confirmPasswordProp = {

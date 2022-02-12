@@ -63,6 +63,12 @@ export default {
     };
   },
   methods: {
+    gotoRegister() {
+      this.$router.push({ name: "Register", path: "/register" });
+    },
+    gotoLogin() {
+      this.$router.push({ name: "Login", path: "/login" });
+    },
     logout() {
       this.$store.dispatch("LOGOUT");
     },
