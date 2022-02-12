@@ -43,4 +43,30 @@ const confirmPasswordProp = {
   autoComplete: "",
 };
 
-export { firstnameProp, lastnameProp, emailProp, passwordProp, confirmPasswordProp, emailUsernameProp };
+// User
+const targetProps = {
+  type: "text",
+  name: "Target Monthly Expenses",
+  id: "target",
+  placeholder: "Enter Target",
+  autoComplete: "",
+}
+
+const dateProp = {
+  type: "date",
+  name: "Date",
+  id: "date",
+  placeholder: "Enter Date",
+  autoComplete: "",
+}
+
+const pizzaProp = {
+  type: "text",
+  name: "Pizza",
+  id: "pizza",
+  placeholder: "Enter Pizza",
+  autoComplete: "",
+  label: false,
+}
+
+export { firstnameProp, lastnameProp, emailProp, passwordProp, confirmPasswordProp, emailUsernameProp, targetProps, dateProp, pizzaProp };

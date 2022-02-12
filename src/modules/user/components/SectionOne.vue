@@ -3,7 +3,7 @@
     <div class="card bg-transparent border-0">
       <div class="section_one">
         <div class="container_img">
-          <img :src="img2" alt="user avatar" width="20px" class="avatar" />
+          <img :src="img" alt="user avatar" width="20px" class="avatar" />
         </div>
         <div class="details">
           <h4>Babatunde Fashola</h4>
@@ -24,8 +24,7 @@
 import ProgressBar from "primevue/progressbar";
 import Table from "./SectionOneTable.vue";
 
-const img1 = require("@/assets/placeholder.svg");
-const img2 = require("@/assets/user.svg");
+const img = require("@/assets/user.svg");
 
 export default {
   name: "SectionOne",
@@ -35,8 +34,7 @@ export default {
   },
   data() {
     return {
-      img1,
-      img2,
+      img,
       amount: new Intl.NumberFormat().format(596000),
     };
   },
