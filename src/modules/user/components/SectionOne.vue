@@ -3,16 +3,27 @@
     <div class="card bg-transparent border-0">
       <div class="section_one">
         <div>
-          <label for="file">
-            <div class="container_img">
-              <img :src="img" alt="user avatar" width="20px" class="avatar" />
-            </div>
-          </label>
-          <input type="file" id="file" @change="handleFile" accept="image/*" />
+          <!-- User Avatar -->
+          <div class="container_img">
+            <img
+              :src="avatar || img"
+              alt="user avatar"
+              :width="[avatar !== '' ? '40%' : '20px']"
+              class="avatar img-fluid rounded-3"
+              :class="[avatar !== '' ? 'avatar' : 'avatar_placeholder']"
+            />
+            <label for="file"><i class="bi bi-pencil"></i></label>
+            <input
+              type="file"
+              id="file"
+              @change="handleFile"
+              accept="image/*"
+            />
+          </div>
         </div>
         <div class="details">
-          <h4>Babatunde Fashola</h4>
-          <p>baba2@gmail.com</p>
+          <h4>{{ fullname }}</h4>
+          <p>{{ email }}</p>
         </div>
       </div>
       <div class="section_two">
@@ -40,7 +51,10 @@ export default {
   data() {
     return {
       img,
+      avatar: "",
       target: Number(0).toFixed(2),
+      fullname: "",
+      email: "",
     };
   },
   methods: {
@@ -51,7 +65,7 @@ export default {
     //   // exponent of 10 by 3
     // },
     setTarget() {
-      const value = this.$store.state.target;
+      const value = this.$store.getters.target;
       if (value !== 0) {
         const data = new Intl.NumberFormat("en-NG").format(
           this.$store.getters.target
@@ -66,6 +80,16 @@ export default {
       data.append("avatar", file[0]);
       await this.$store.dispatch("UPDATE_AVATAR", data);
     },
+    setUserData() {
+      if (this.$store.getters.isAuthenticated) {
+        const { firstname, lastname, email, avatar } =
+          this.$store.state.details;
+        this.fullname = `${lastname} ${firstname}`;
+        this.email = email;
+        this.avatar = avatar;
+        return;
+      }
+    },
   },
   watch: {
     "$store.state.target": {
@@ -77,6 +101,7 @@ export default {
   },
   mounted() {
     this.setTarget();
+    this.setUserData();
   },
 };
 </script>
@@ -94,12 +119,28 @@ main.SectionOne {
       height: 4.5rem;
       border-radius: 1.25rem;
       background-color: #c4c4c4;
-      img.avatar {
+      img.avatar_placeholder {
         position: absolute;
         min-height: 100%;
         display: flex;
         align-items: center;
         left: 35%;
+      }
+      img.avatar {
+        border-radius: 1.25rem;
+        width: 100%;
+        height: 100%;
+      }
+      label {
+        cursor: pointer;
+        position: absolute;
+        left: -0.7rem;
+        bottom: -0.7rem;
+        border: 1px solid #ffffff;
+        padding: 0.1rem 0.3rem;
+        border-radius: 50%;
+        background-color: #4de897;
+        color: #fff;
       }
     }
     div.details {

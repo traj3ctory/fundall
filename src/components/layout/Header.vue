@@ -23,13 +23,26 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav w-100 justify-content-end mb-2 mb-lg-0" v-if="!this.$store.getters.isAuthenticated">
+          <ul
+            class="navbar-nav w-100 justify-content-end mb-2 mb-lg-0"
+            v-if="!this.$store.getters.isAuthenticated"
+          >
             <li class="nav-item">
               <button class="btn" @click="gotoLogin">LOG IN</button>
             </li>
             <li class="nav-item">
               <button class="btn btn_signup" @click="gotoRegister">
                 SIGN UP
+              </button>
+            </li>
+          </ul>
+          <ul
+            class="navbar-nav w-100 justify-content-end mb-2 mb-lg-0"
+            v-if="this.$store.getters.isAuthenticated"
+          >
+            <li class="nav-item">
+              <button class="btn btn_logout" @click="logout">
+                <i class="bi bi-door-closed-fill"></i>&nbsp;LOG OUT
               </button>
             </li>
           </ul>
@@ -47,15 +60,11 @@ export default {
   data() {
     return {
       logo,
-      message: "Welcome to Your Vue.js App",
     };
   },
   methods: {
-    gotoRegister() {
-      this.$router.push({ name: "Register", path: "/register" });
-    },
-    gotoLogin() {
-      this.$router.push({ name: "Login", path: "/login" });
+    logout() {
+      this.$store.dispatch("LOGOUT");
     },
   },
 };
@@ -71,8 +80,15 @@ header.header {
     font-size: 0.9rem;
     font-weight: 500;
     margin-right: 0.5rem;
+    &.btn_logout {
+      background-color: #e84c4c;
+      border-radius: 10px;
+      color: #eeeeee;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
     &.btn_signup {
-      background-color: #4ce895;
+      background-color: #4de897;
       border-radius: 10px;
       color: #000000;
       font-size: 0.9rem;

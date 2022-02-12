@@ -3,7 +3,7 @@
     <div class="card bg-transparent border-0">
       <div class="card-header bg-white">
         <div>
-          <h4><span>Welcome back,</span> Babatunde</h4>
+          <h4><span>Welcome back,</span> {{ firstname }}</h4>
           <p>Now, let’s get your expenses for this month</p>
         </div>
         <div class="img_container">
@@ -12,7 +12,7 @@
             alt="user_profile"
             width="100%"
             height="250%"
-            class="img-flluid"
+            class="img-fluid"
           />
         </div>
       </div>
@@ -36,7 +36,19 @@ export default {
     return {
       img,
       SectionTwoForm,
+      firstname: "",
     };
+  },
+  methods: {
+    setUserData() {
+      if (this.$store.getters.isAuthenticated) {
+        this.firstname = this.$store.state.details.firstname;
+        return;
+      }
+    },
+  },
+  mounted() {
+    this.setUserData();
   },
 };
 </script>

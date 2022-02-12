@@ -77,6 +77,7 @@ export const actions = {
       context.commit("logout");
       clearUserData();
       Toast("Success", "Logout Successfully", "info");
+      router.push("/login");
       return;
     } catch (error) {
       Toast("Error", error.message, "warning");
