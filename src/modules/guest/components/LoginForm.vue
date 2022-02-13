@@ -12,7 +12,7 @@
       <button
         :disabled="this.$store.getters.isLoading"
         :class="{ submitting: this.$store.getters.isLoading }"
-        class="btn btn_fundall w-100 py-2"
+        class="btn btn_fundall w-100 py-3"
       >
         LOGIN
       </button>

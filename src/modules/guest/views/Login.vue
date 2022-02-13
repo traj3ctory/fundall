@@ -1,7 +1,7 @@
 <template>
   <main class="login container-lg container-fluid">
     <div class="row">
-      <div class="col-md-5 col-12 d-md-block d-none mb-3 img_container">
+      <div class="col-md-5 col-12 d-md-block d-none mb-3 img_container shadow">
         <img
           :src="image"
           alt="register image"
@@ -14,7 +14,7 @@
         </h4>
       </div>
       <div class="col-md-7 col-12 mb-3">
-        <div class="card border-0 shadow-sm px-4 py-3">
+        <div class="card border-0 shadow-sm px-4 p-lg-4 p-md-3 px-sm-2">
           <h4>Holla</h4>
           <p>Sign in to the vibe!</p>
           <LoginForm />
@@ -53,7 +53,7 @@ export default {
 
 <style lang="scss" scoped>
 main.login {
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,7 +78,7 @@ main.login {
   p.copyright {
     font-size: 0.8rem;
     text-align: center;
-    margin-top: 3rem;
+    // margin-top: 3rem;
     color: #97a19d;
   }
   p.login {
