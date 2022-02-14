@@ -8,9 +8,9 @@
             <img
               :src="avatar || img"
               alt="user avatar"
-              :width="[avatar !== '' ? '40%' : '20px']"
-              class="avatar img-fluid rounded-3"
-              :class="[avatar !== '' ? 'avatar' : 'avatar_placeholder']"
+              :width="[avatar ? '40%' : '20px']"
+              class="img-fluid rounded-3"
+              :class="[avatar ? 'avatar' : 'avatar_placeholder']"
             />
             <label for="file"><i class="bi bi-pencil"></i></label>
             <input
@@ -29,7 +29,7 @@
       <div class="section_two">
         <p>Target Monthly Expenses</p>
         <h5>&#8358;{{ target }}</h5>
-        <ProgressBar :value="30" :showValue="false" />
+        <ProgressBar :value="progress" :showValue="false" />
         <Table />
       </div>
     </div>
@@ -55,15 +55,14 @@ export default {
       target: Number(0).toFixed(2),
       fullname: "",
       email: "",
+      progress: 0,
     };
   },
   methods: {
-    // formatProgress(value) {
-    //   const data = value;
-    //   const divideBy = Math.pow(10, data.length - 1);
-    //   console.log((data / divideBy).toFixed(), data, divideBy);
-    //   // exponent of 10 by 3
-    // },
+    formatProgress(value) {
+      const data = value;
+      this.progress = Math.floor((Number(data) / 100 * 100));
+    },
     setTarget() {
       const value = this.$store.getters.target;
       if (value !== 0) {
@@ -72,7 +71,7 @@ export default {
         );
         this.target = data;
       }
-      // this.formatProgress(value);
+      this.formatProgress(value);
     },
     async handleFile(e) {
       const file = e.target.files;

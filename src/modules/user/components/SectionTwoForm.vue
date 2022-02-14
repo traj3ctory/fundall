@@ -1,29 +1,30 @@
 <template>
   <main class="profile_form">
-    <div class="row mb-3">
-      <div class="col-12 mb-3">
-        <BaseInput :data="targetProps" v-model="target" @input="setTarget" />
-      </div>
-      <div class="col-12 mb-3">
-        <BaseInput :data="dateProp" v-model="date" />
-      </div>
-    </div>
-    <h6 class="title">Today’s Expenses</h6>
-    <div>
-      <div class="row" v-for="(el, i) in 3" :key="i">
-        <div class="col-md-6 col-12 mb-3">
-          <input
-            type="text"
-            :name="`item-${el}`"
-            :id="`item-${el}`"
-            class="form-control"
-            v-model="expense[i][0]"
-            placeholder="Enter item"
-            @input="handleInput"
-          />
+    <form @submit="handleSaveExpense">
+      <div class="row mb-3">
+        <div class="col-12 mb-3">
+          <BaseInput :data="targetProps" v-model="target" @input="setTarget" />
         </div>
-        <div class="col-md-6 col-12 mb-3">
-          <!-- <input
+        <div class="col-12 mb-3">
+          <BaseInput :data="dateProp" v-model="date" />
+        </div>
+      </div>
+      <h6 class="title">Today’s Expenses</h6>
+      <div>
+        <div class="row" v-for="(el, i) in 3" :key="i">
+          <div class="col-md-6 col-12 mb-3">
+            <input
+              type="text"
+              :name="`item-${el}`"
+              :id="`item-${el}`"
+              class="form-control"
+              v-model="expense[i][0]"
+              placeholder="Enter item"
+              @input="handleInput"
+            />
+          </div>
+          <div class="col-md-6 col-12 mb-3">
+            <!-- <input
               type="text"
               :name="`amount-${el}`"
               :id="`amount-${el}`"
@@ -32,44 +33,46 @@
               v-model="expense[i][1]"
               placeholder="Enter Amount"
             /> -->
-          <input
-            type="number"
-            :name="`amount-${el}`"
-            :id="`amount-${el}`"
-            class="form-control"
-            @input="handleExpense"
-            v-model="expense[i][1]"
-            placeholder="Enter Amount"
-            disabled
-          />
+            <input
+              type="number"
+              :name="`amount-${el}`"
+              :id="`amount-${el}`"
+              class="form-control"
+              @input="handleExpense"
+              v-model="expense[i][1]"
+              placeholder="Enter Amount"
+              disabled
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="total">
-      <h6>Total Actual Expenses:&ensp;&#8358;</h6>
-      <input
-        type="text"
-        name="result"
-        id="result"
-        readOnly
-        :value="TotalExpense"
-        class="form-control w-25 push_left"
-      />
-    </div>
-    <div class="text-center">
-      <button
-        :disabled="this.$store.getters.isLoading"
-        :class="{ submitting: this.$store.getters.isLoading }"
-        class="btn btn_fundall"
-      >
-        SAVE TODAY’S EXPENSES
-      </button>
-    </div>
+      <div class="total">
+        <h6>Total Actual Expenses:&ensp;&#8358;</h6>
+        <input
+          type="text"
+          name="result"
+          id="result"
+          readOnly
+          :value="TotalExpense"
+          class="form-control w-25 push_left"
+        />
+      </div>
+      <div class="text-center">
+        <button
+          :disabled="this.$store.getters.isLoading"
+          :class="{ submitting: this.$store.getters.isLoading }"
+          class="btn btn_fundall"
+        >
+          SAVE TODAY’S EXPENSES
+        </button>
+      </div>
+    </form>
   </main>
 </template>
 
 <script>
 import { targetProps, dateProp } from "@/components/props";
+import Toast from "@/utils/Toast";
 
 export default {
   name: "SectionTwoForm",
@@ -121,6 +124,29 @@ export default {
     },
     setTarget() {
       this.$store.dispatch("SET_TARGET", this.target);
+    },
+    handleSaveExpense(e) {
+      e.preventDefault();
+      if(this.date === ""){
+        Toast("Error", "Please enter date", "warning");
+        return;
+      }
+      if(this.TotalExpense === parseInt(0).toFixed(2)){
+        Toast("Error", "Expense cannot be zero", "warning");
+        return;
+      }
+      const data = {
+        date: this.date,
+        amount: this.TotalExpense,
+      };
+      this.$store.dispatch("SAVE_EXPENSE", data);
+      // Reset input
+      this.expense = [
+        ["", ""],
+        ["", ""],
+        ["", ""],
+      ];
+      this.TotalExpense = parseInt(0).toFixed(2);
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <main class="login container-lg container-fluid">
     <div class="row">
-      <div class="col-md-5 col-12 d-md-block d-none mb-3 img_container shadow">
+      <div class="col-md-5 col-12 d-md-block d-none mb-3 img_container">
         <img
           :src="image"
           alt="register image"
@@ -14,7 +14,7 @@
         </h4>
       </div>
       <div class="col-md-7 col-12 mb-3">
-        <div class="card border-0 shadow-sm px-4 p-lg-4 p-md-3 px-sm-2">
+        <div class="card border-0 shadow-sm px-lg-5 px-md-3 px-1 py-4">
           <h4>Holla</h4>
           <p>Sign in to the vibe!</p>
           <LoginForm />

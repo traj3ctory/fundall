@@ -9,7 +9,7 @@
         :src="img"
         alt="search for data..."
         class="img-fluid"
-        width="40%"
+        width="60%"
         height="auto"
       />
     </div>
@@ -58,15 +58,31 @@ export default {
     return {
       img,
       data: [
-        {
-          date: "30 Nov, 2018",
-          amount: "30,000",
-        },
-        { date: "25 Nov, 2018", amount: "30,000" },
-        { date: "28 Oct, 2018", amount: "30,000" },
+        // {
+        //   date: "30 Nov, 2018",
+        //   amount: "30,000",
+        // },
+        // { date: "25 Nov, 2018", amount: "30,000" },
+        // { date: "28 Oct, 2018", amount: "30,000" },
       ],
       amount: new Intl.NumberFormat().format(596000),
     };
+  },
+  methods: {
+    getExpenses() {
+      const expenses = this.$store.state.expenses;
+      if (expenses.length > 0) {
+        this.data = expenses
+      }
+    },
+  },
+  watch: {
+    "$store.state.expenses": {
+      immediate: true,
+      handler() {
+        this.getExpenses();
+      },
+    },
   },
 };
 </script>
@@ -101,9 +117,8 @@ main.section_one_table {
   div.loading_container {
     h5 {
       font-style: normal;
-      font-weight: 600;
-      font-size: 1.2rem;
-      line-height: 22px;
+      font-weight: 500;
+      font-size: 0.9rem;
       color: #30443c;
     }
     margin-top: 3rem;

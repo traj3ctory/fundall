@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LoadingOverlay v-if="loading" />
+    <LoadingOverlay v-if="loading" class="transition" />
     <div v-else>
       <Header />
       <main class="user_profile container">
@@ -29,8 +29,21 @@ export default {
   },
   data() {
     return {
-      loading: this.$store.getters.isLoading,
+      loading: false,
     };
+  },
+  methods: {
+    setLoader() {
+      this.loading = this.$store.getters.profileLoading;
+    },
+  },
+  watch: {
+    "$store.state.profile_loading": {
+      immediate: true,
+      handler() {
+        this.setLoader();
+      },
+    },
   },
 };
 </script>
@@ -43,5 +56,8 @@ main.user_profile {
   // align-items: center;
   // justify-content: center;
   // flex-direction: column;
+  .transition{
+    transition: all 5s ease-in-out;
+  }
 }
 </style>

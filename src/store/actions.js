@@ -42,7 +42,7 @@ export const actions = {
   // Function to get user details
   async GET_USER_DETAILS(context) {
     try {
-      // context.commit("loading", true);
+      context.commit("profile_loading", true);
       const response = await Request("GET", "base/profile");
       const { data, status } = response.success;
       context.commit("details", { ...data });
@@ -51,7 +51,7 @@ export const actions = {
     } catch (error) {
       Toast(error.error.code, error.error.error, "warning");
     } finally {
-      context.commit("loading", false);
+      context.commit("profile_loading", false);
     }
   },
   // Function to  update avatar
@@ -63,6 +63,7 @@ export const actions = {
       setTimeout(() => {
         Toast(status, message, "success");
       }, 1000);
+      context.commit("loading", false);
       //call the get user action without payload
       await context.dispatch("GET_USER_DETAILS");
       return;
@@ -87,13 +88,29 @@ export const actions = {
       context.commit("loading", false);
     }
   },
+  // Function to set user expenses
+  async SAVE_EXPENSE(context, payload) {
+    try {
+      context.commit("loading", true);
+      await context.commit("expenses", payload);
+      Toast("Success", "Expense saved successfully", "success");
+      return;
+    } catch (error) {
+      Toast(error.error.code, error.error.message, "warning");
+    } finally {
+      context.commit("loading", false);
+    }
+  },
   // Function to set user target
   async SET_TARGET(context, payload) {
     context.commit("target", payload);
   },
-
   // Function to set the loading state
   async SET_LOADING(context, payload) {
     context.commit("loading", payload);
+  },
+  // Function to set profile page loader
+  async SET_PROFILE_LOADER(context, payload) {
+    context.commit("profile_loading", payload);
   },
 };
