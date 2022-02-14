@@ -1,4 +1,5 @@
 import axios from "axios";
+const token = localStorage.getItem("human_id");
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL,
@@ -6,7 +7,7 @@ const instance = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    Authorization: `Bearer ${localStorage.getItem("human_id")}` || "",
+    Authorization: `Bearer ${token}` || "",
   },
 });
 
